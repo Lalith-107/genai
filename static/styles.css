@@ -1,0 +1,74 @@
+/* Style for logo container */
+.logo-container {
+    display: flex;
+    justify-content: center; /* Align logos in the center */
+    align-items: center;
+    gap: 20px; /* Space between logos */
+    padding: 10px;
+}
+
+/* Style for all logos */
+.logo-container img {
+    width: 100px; 
+    height: 100px; 
+    object-fit: contain; 
+    border: 2px solid black;
+    border-radius: 10px; 
+    padding: 5px;
+    background-color: white; 
+}
+
+/* Style for hero section */
+.hero {
+    text-align: center;
+    padding: 20px;
+}
+
+.hero-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    border: 5px solid black; 
+    border-radius: 10px; 
+}
+
+
+.hero-text {
+    margin-top: 20px;
+}
+
+/* Style for form */
+.container {
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Button styling */
+button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Hide result section initially */
+.hidden {
+    display: none;
+}

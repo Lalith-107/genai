@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Training - Workout Description Generator</title>
+    
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
+
+        /* Container for content */
+        .container {
+            width: 90%;
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        /* Input and select styling */
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Button styling */
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Header styling */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .logo-container img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border: 2px solid black;
+            border-radius: 10px;
+            padding: 5px;
+            background-color: white;
+        }
+
+        /* Result section */
+        #result {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #e9f7ef;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="/static/IVIS_logo.png" alt="IVIS Labs Logo">
+            <img src="/static/NIE_University.png" alt="NIE University Logo">
+            <img src="../static/PULSELOGO.png" alt="Pulse Logo">
+        </div>
+        <h1>Welcome to Your Personal Gym Trainer</h1>
+    </header>
+    <hr>
+    
+    <section class="hero">
+        <img src="../static/gym2.jpg" alt="Gym Training" class="hero-image" style="width: 96%;
+        max-height: 500px;
+        object-fit: cover;
+        border: 10px solid black; 
+        border-radius: 10px;" >
+        <div class="hero-text">
+            <h2>Generate Custom Workout Descriptions</h2>
+            <p>Personalized workout guidance tailored to your fitness level and goals.</p>
+        </div>
+    </section>
+    
+    <div class="container">
+        <h2>Workout Description Generator</h2>
+        <form id="workout-form">
+            <label for="exercise_name">Exercise Name:</label>
+            <input type="text" id="exercise_name" name="exercise_name" required placeholder="e.g. Squats, Push-ups">
+            
+            <label for="fitness_level">Fitness Level:</label>
+            <select id="fitness_level" name="fitness_level">
+                <option value="all levels">All Levels</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+            </select>
+            
+            <label for="focus_area">Focus Area:</label>
+            <input type="text" id="focus_area" name="focus_area" placeholder="e.g. Core, Legs, Upper Body">
+            
+            <label>
+                <input type="checkbox" id="include_tips" name="include_tips" checked>
+                Include Trainer Tips
+            </label>
+            <br>
+            <button type="submit">Generate Description</button>
+        </form>
+        
+        <div id="result">
+            <h2>Generated Workout Description:</h2>
+            <p id="output"></p>
+        </div>
+    </div>
+    <hr>
+    <h3>Provided by IVIS LABS Pvt.Ltd</h3>
+    
+    <script>
+        document.getElementById("workout-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const response = await fetch("/generate", {
+                method: "POST",
+                body: formData
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.generated_description) {
+                    document.getElementById("output").textContent = data.generated_description;
+                    document.getElementById("result").style.display = "block";
+                } else {
+                    alert("No description generated. Please try again.");
+                }
+            } else {
+                alert("Failed to generate description. Try again!");
+            }
+        });
+    </script>
+</body>
+</html>
